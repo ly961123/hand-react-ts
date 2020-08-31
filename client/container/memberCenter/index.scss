@@ -1,0 +1,8 @@
+.member_center {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .member_center__top {
+    flex: 1;
+  }
+}

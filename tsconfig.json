@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "module": "commonjs",
+    "lib": ["es2017", "dom"],
+    "outDir": "dist",
+    "rootDir": ".",
+    "jsx": "react",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strict": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "rc-notification": ["types/rc-notification"],
+      "@tencent/huskie-client": ["types/huskie-client"],
+      "stream-wormhole": ["types/stream-wormhole"],
+      "socks-proxy-agent": ["types/socks-proxy-agent"],
+      "@tencent/cl5": ["types/cl5"],
+      "@tencent/taf-monitor": ["types/taf-monitor"],
+      "global": ["types/global"],
+      "cos-js-sdk-v5": ["types/cos-js-sdk-v5"],
+      "@rootDir/*": ["./*"],
+      "@tencent/trpc-rpc-local": ["types/trpc-rpc-local"],
+    },
+    "skipLibCheck": true,
+  },
+  "include": [
+    "portal",
+    "client",
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

@@ -1,0 +1,8 @@
+.cart {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .cart__top {
+    flex: 1;
+  }
+}

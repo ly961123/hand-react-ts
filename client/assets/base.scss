@@ -1,0 +1,9 @@
+@import './common/reset.scss';
+@import 'antd-mobile/dist/antd-mobile.css'; 
+html,body{
+  height: 100%;
+}
+#root{
+  height: 100%;
+  overflow: hidden;
+}

@@ -1,0 +1,9 @@
+.movie {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .movie__top {
+    flex: 1;
+    overflow: auto;
+  }
+}
