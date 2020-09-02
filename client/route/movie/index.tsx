@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import movie from '../../container/movie/index/index';
+import movie from '../../container/movie/index';
 import details from '../../container/home/detail/index';
 
 export default ({ match }: RouteComponentProps) => (

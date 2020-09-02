@@ -4,6 +4,8 @@
   flex-direction: column;
   .movie__top {
     flex: 1;
+    // display: flex;
+    // flex-direction: column;
     overflow: auto;
   }
 }
