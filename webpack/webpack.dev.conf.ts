@@ -27,16 +27,18 @@ const config = {
     // //输出的文件名称
     // filename:'bundle.js'
 
-    filename: '[name].[hash].js',
-    path: path.resolve(__dirname,'..', 'dist'),
+    // filename: '[name].[hash].js',
+    // path: path.resolve(__dirname,'..', 'dist'),
+    publicPath: 'http://localhost:8000/'
   },
   devServer: {
     hot: true,
+    host: '0.0.0.0',
     // host: 'http://localhost:8080',
     historyApiFallback: true,
     contentBase: path.resolve(__dirname, '..' ,'static'),
-    port: 8080,
-    open: true,
+    port: 8000,
+    // open: true,
     // headers: { 'Access-Control-Allow-Origin': '*' },
   },
   module: {
@@ -109,7 +111,7 @@ const config = {
       // chunks主要用于多入口文件，当你有多个入口文件，那就回编译后生成多个打包后的文件
       chunks: ['index', 'vendor', 'manifest'],
       // 设置图标
-      favicon: path.resolve(__dirname, '..', 'client', 'assets', 'image', 'favicon.png'),
+      favicon: path.resolve(__dirname, '..', 'client', 'assets', 'image', 'daomei.png'),
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),

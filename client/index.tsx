@@ -5,6 +5,7 @@ import { render } from 'react-dom';
 // import './main.css';
 import MyRoute from './route';
 import './assets/base.scss';
+import 'babel-polyfill';
 
 // globalProcess();
 

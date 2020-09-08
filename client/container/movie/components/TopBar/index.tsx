@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
+import { TopBars } from '@rootDir/model/movie.ts'
 // import { useHistory } from 'react-router-dom';
 import './index.scss';
 
-interface TopBars {
-  title: string;
-  key: string;
+interface IProps {
+  tabs: TopBars[],
+  topText: string,
+  setTopText: Dispatch<SetStateAction<string>>,
+  setList: () => void,
 }
 
-const tabs: TopBars[] = [
-  { title: '正在热映', key: 'now' },
-  { title: '即将上映', key: 'about' },
-];
-
-const CustomTopBar = () => {
+const CustomTopBar = ({
+  tabs,
+  topText,
+  setTopText,
+  setList,
+}: IProps) => {
   // const history = useHistory();
-  const [topText, setTopText] = useState('');
-  useEffect(() => {
-    setTopText('now');
-  }, []);
 
   const setTopBarText = (key: string) => {
     setTopText(key);
+    setList();
   };
 
   // const goDetails = (id: number) => {

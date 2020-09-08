@@ -1,98 +1,45 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'antd-mobile';
 import NavBar from '@rootDir/client/component/NavBar'
-import { NowPlayingData } from '@rootDir/model/movie.ts'
+import { NowPlaying, TopBars } from '@rootDir/model/movie.ts'
+import { GlobalState } from '../application/index';
 import TopBar from './components/TopBar'
 import MovieList from './MovieList';
+import { movieList } from './mock/movie.mock'
 import './index.scss';
 
-const defaultData = [
-  {
-    name: '八佰',
-    nation: '中国大陆',
-    poster: 'https://pic.maizuo.com/usr/movie/09348aa4f961d2cb7e8f7c1e5f6e4e90.jpg',
-    grade: '7.1',
-    runtime: 165,
-    filmType: {
-      name: '2D',
-      value: 1,
-    },
-    actors: [
-      {
-        name: '管虎',
-        role: '导演',
-        avatarAddress: 'https://pic.maizuo.com/usr/movie/c685628d1c1d5b05594618fd82b423a3.jpg',
-      },
-      {
-        name: '张泽',
-        role: '老算盘',
-        avatarAddress: 'https://pic.maizuo.com/usr/movie/a18739fd30d4b1b9e9a16a92bda44998.jpg',
-      },
-      {
-        name: '姜武',
-        role: '老铁',
-        avatarAddress: 'https://pic.maizuo.com/usr/movie/376063f0e99a33e47f97ed6f080ddaa4.jpg',
-      },
-      {
-        name: '王千源',
-        role: '羊拐',
-        avatarAddress: 'https://pic.maizuo.com/usr/movie/98d4f877ba00db820c03cea1070654c4.jpg',
-      },
-      {
-        name: '黄志忠',
-        role: '老葫芦',
-        avatarAddress: 'https://pic.maizuo.com/usr/movie/9ff5d9790a8b5ae573552f83af3e506c.jpg',
-      },
-    ],
-  },
-  {
-    name: '八佰1',
-    nation: '中国大陆',
-    poster: 'https://pic.maizuo.com/usr/movie/09348aa4f961d2cb7e8f7c1e5f6e4e90.jpg',
-    grade: '7.1',
-    runtime: 165,
-    filmType: {
-      name: '2D',
-      value: 1,
-    },
-    actors: [
-      {
-        name: '管虎',
-        role: '导演',
-        avatarAddress: 'https://pic.maizuo.com/usr/movie/c685628d1c1d5b05594618fd82b423a3.jpg',
-      },
-      {
-        name: '张泽',
-        role: '老算盘',
-        avatarAddress: 'https://pic.maizuo.com/usr/movie/a18739fd30d4b1b9e9a16a92bda44998.jpg',
-      },
-      {
-        name: '姜武',
-        role: '老铁',
-        avatarAddress: 'https://pic.maizuo.com/usr/movie/376063f0e99a33e47f97ed6f080ddaa4.jpg',
-      },
-      {
-        name: '王千源',
-        role: '羊拐',
-        avatarAddress: 'https://pic.maizuo.com/usr/movie/98d4f877ba00db820c03cea1070654c4.jpg',
-      },
-      {
-        name: '黄志忠',
-        role: '老葫芦',
-        avatarAddress: 'https://pic.maizuo.com/usr/movie/9ff5d9790a8b5ae573552f83af3e506c.jpg',
-      },
-    ],
-  },
+const tabs: TopBars[] = [
+  { title: '正在热映', key: 'now' },
+  { title: '即将上映', key: 'about' },
 ];
+
+const defultData = {
+  count: 0,
+  list: [],
+};
 
 const Movie = () => {
   const history = useHistory();
   const [text, setText] = useState('');
-  const [nowPlayingData, setNowPlayingData] = useState<NowPlayingData[]>(defaultData);
+  const [topText, setTopText] = useState('now');
+  const [nowPlayingData, setNowPlayingData] = useState<NowPlaying>(defultData);
+  const { showToast, setShowToast } = useContext(GlobalState);
+
+  const setList = () => {
+    setShowToast(true);
+    setTimeout(() => {
+      setNowPlayingData(movieList());
+      setShowToast(false);
+    }, 2000);
+  };
+
   useEffect(() => {
+    console.log(showToast, 'showToast');
+    console.log(setShowToast, 'setShowToast');
+    movieList();
     setText('首页');
-    setNowPlayingData(defaultData);
+    setList();
   }, []);
 
   const goDetails = (id: number) => {
@@ -102,15 +49,23 @@ const Movie = () => {
   return (
     <div className='movie'>
       <div className='movie__top'>
-        <TopBar/>
-        <MovieList nowPlayingData={nowPlayingData}/>
+        <TopBar
+          tabs={tabs}
+          topText={topText}
+          setTopText={setTopText}
+          setList={setList}
+        />
+        <MovieList
+          nowPlaying={nowPlayingData}
+          topText={topText}
+        />
         {text}
         <Button
           onClick={() => goDetails(1111)}
           size='small'
           inline
         >
-          去详情
+          去详情111
         </Button>
       </div>
       <NavBar/>

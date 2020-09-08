@@ -1,24 +1,42 @@
 import React, { useEffect } from 'react';
-import { NowPlayingData } from '@rootDir/model/movie.ts'
+import { NowPlaying } from '@rootDir/model/movie.ts'
+import apiClient from '@rootDir/client/apiClient'
 import './index.scss';
 
 interface IProps {
-  nowPlayingData: NowPlayingData[],
+  nowPlaying: NowPlaying,
+  topText: string,
 }
 
 const MovieList = ({
-  nowPlayingData
+  nowPlaying,
+  topText,
 }: IProps) => {
 
   useEffect(() => {
-    console.log(nowPlayingData, 'nowPlayingData');
-  }, []);
+    console.log(nowPlaying, 'nowPlayingData');
+  }, [nowPlaying]);
+
+  const fetchList = async () => {
+    console.log('进来啦');
+    const result = await apiClient.get(`movie`);
+    return result;
+  };
+
+  const getList = () => {
+    console.log('点了1111');
+    fetchList().then((res) => {
+      console.log(res, 'resresres');
+    }).catch(_ => {
+      console.log('出错了');
+    })
+  };
 
   return (
     <div className='movie_list'>
       <ul className='movie_list__piece'>
         {
-          nowPlayingData.map((v, i) =>
+          nowPlaying?.list.map((v, i) =>
             <li className='movie_list__grain' key={v.name + i}>
               <div className='movie_list__left'>
                 <img src={v.poster} alt={v.name}/>
@@ -33,42 +51,21 @@ const MovieList = ({
                   <span className='grade'>{v.grade}</span>
                 </div>
                 <div className='movie_list__protagonist'>
-                  主演：{v.actors.map(item => item.name + ' ')}
+                  主演：{v.actors.map((item: any) => item.name + ' ')}
                 </div>
                 <div className='movie_list__nation'>
                   {`${v.nation} | ${v.runtime}分钟`}
                 </div>
               </div>
               <div className='movie_list__right'>
-                <span className='movie_list__ticket'>购票</span>
+                <span
+                  className='movie_list__ticket'
+                  onClick={() => {getList()}}
+                >{topText === 'now' ? '购票' : '预约'}</span>
               </div>
             </li>
           )
         }
-        {/* <li className='movie_list__grain'>
-          <div className='movie_list__left'>
-            <img src={nowPlayingData.poster} alt={nowPlayingData.name}/>
-          </div>
-          <div className='movie_list__center'>
-            <div className='movie_list__top'>
-              <span className='name'>{nowPlayingData.name}</span>
-              <span className='filmTypeName'>{nowPlayingData.filmType.name}</span>
-            </div>
-            <div className='movie_list__critic'>
-              <span>观众评分</span>
-              <span className='grade'>{nowPlayingData.grade}</span>
-            </div>
-            <div className='movie_list__protagonist'>
-              主演：{nowPlayingData.actors.map(v => v.name + ' ')}
-            </div>
-            <div className='movie_list__nation'>
-              {`${nowPlayingData.nation} | ${nowPlayingData.runtime}分钟`}
-            </div>
-          </div>
-          <div className='movie_list__right'>
-            <span className='movie_list__ticket'>购票</span>
-          </div>
-        </li> */}
       </ul>
     </div>
   );

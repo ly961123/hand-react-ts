@@ -9,6 +9,11 @@ interface FilmType {
   value: number,
 }
 
+export interface TopBars {
+  title: string;
+  key: string;
+}
+
 export interface NowPlayingData {
   name: string,
   nation: string,
@@ -17,4 +22,8 @@ export interface NowPlayingData {
   runtime: number,
   filmType: FilmType,
   actors: Actors[],
+}
+export interface NowPlaying {
+  list: NowPlayingData[],
+  count: number,
 }
