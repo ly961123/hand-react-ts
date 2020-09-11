@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import { Button } from 'antd-mobile';
 import NavBar from '@rootDir/client/component/NavBar'
-import { NowPlaying, TopBars } from '@rootDir/model/movie.ts'
+import { NowPlaying, TopBars, IMovieList } from '@rootDir/model/movie.ts'
+import apiClient from '@rootDir/client/apiClient'
 import { GlobalState } from '../application/index';
 import TopBar from './components/TopBar'
 import MovieList from './MovieList';
-import { movieList } from './mock/movie.mock'
 import './index.scss';
 
 const tabs: TopBars[] = [
@@ -19,31 +19,41 @@ const defultData = {
   list: [],
 };
 
-const Movie = () => {
-  const history = useHistory();
-  const [text, setText] = useState('');
+const Movie = ({
+  location,
+  history,
+}: Pick<RouteComponentProps, 'history' | 'location'>) => {
+  const [text] = useState('首页');
   const [topText, setTopText] = useState('now');
   const [nowPlayingData, setNowPlayingData] = useState<NowPlaying>(defultData);
   const { showToast, setShowToast } = useContext(GlobalState);
 
-  const setList = () => {
+  const fetchList = async () => {
+    const result: IMovieList = await apiClient.get(`movie`);
+    return result;
+  };
+
+  const getList = () => {
     setShowToast(true);
-    setTimeout(() => {
-      setNowPlayingData(movieList());
+    fetchList().then((res: IMovieList) => {
+      console.log(res, 'resresres');
+      setNowPlayingData(res.data);
       setShowToast(false);
-    }, 2000);
+    }).catch((err) => {
+      console.log(err, '出错了');
+    })
   };
 
   useEffect(() => {
     console.log(showToast, 'showToast');
     console.log(setShowToast, 'setShowToast');
-    movieList();
-    setText('首页');
-    setList();
+    console.log(location, 'location');
+    console.log(history, 'history');
+    getList();
   }, []);
 
   const goDetails = (id: number) => {
-    history.push(`/movie/${id}/details`)
+    history.push(`/movie/${id}/details`);
   };
 
   return (
@@ -53,11 +63,12 @@ const Movie = () => {
           tabs={tabs}
           topText={topText}
           setTopText={setTopText}
-          setList={setList}
+          setList={getList}
         />
         <MovieList
           nowPlaying={nowPlayingData}
           topText={topText}
+          history={history}
         />
         {text}
         <Button
@@ -65,7 +76,7 @@ const Movie = () => {
           size='small'
           inline
         >
-          去详情111
+          去详情
         </Button>
       </div>
       <NavBar/>

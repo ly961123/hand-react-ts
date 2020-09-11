@@ -1,13 +1,15 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import movie from '../../container/movie/index';
-import details from '../../container/home/detail/index';
+import Movie from '../../container/movie/index';
+import Details from '../../container/movie/detail/index';
+import BuyTicket from '../../container/movie/buyTicket/index';
 
 export default ({ match }: RouteComponentProps) => (
   <Switch>
-    <Route exact path={match.url} component={movie} />
-    <Route path={`${match.path}/:requireId/details`} component={details} />
+    <Route exact path={match.url} component={Movie} />
+    <Route path={`${match.path}/:movieId/details`} component={Details} />
+    <Route path={`${match.path}/:movieId/buyTicket`} component={BuyTicket} />
     <Redirect from='*' to={match.url} />
   </Switch>
 );

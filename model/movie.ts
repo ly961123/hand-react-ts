@@ -15,6 +15,7 @@ export interface TopBars {
 }
 
 export interface NowPlayingData {
+  id: string,
   name: string,
   nation: string,
   poster: string,
@@ -22,8 +23,17 @@ export interface NowPlayingData {
   runtime: number,
   filmType: FilmType,
   actors: Actors[],
+  premiereAt: number,
+  synopsis: string,
+  photos: string[],
 }
+
 export interface NowPlaying {
   list: NowPlayingData[],
   count: number,
+}
+
+export interface IMovieList {
+  msg: string,
+  data: NowPlaying,
 }
