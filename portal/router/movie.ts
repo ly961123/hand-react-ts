@@ -6,8 +6,6 @@ const {
   getAllMovies,
 } = movie;
 
-console.log('进来啦？2');
-
 const movieRouter: Router = new Router();
 
 movieRouter.get('/', getAllMovies);

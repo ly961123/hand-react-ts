@@ -2,6 +2,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import path from 'path';
 import webpack from 'webpack';
+import ip from 'ip';
 
 const env = process.env.NODE_ENV || 'development';
 let mode = 'development';
@@ -20,7 +21,8 @@ const config = {
   output: {
     // publicPath: "/dist/",
     // filename: "[name].[hash].js",
-    // path: path.join(__dirname, 'dist')
+    path: path.resolve(__dirname, '..', 'static'),
+    filename: '[name].js',
 
     // // 输出的路径，用了Node语法
     // path:path.resolve(__dirname,'dist'),
@@ -29,7 +31,8 @@ const config = {
 
     // filename: '[name].[hash].js',
     // path: path.resolve(__dirname,'..', 'dist'),
-    publicPath: 'http://localhost:8000/'
+    // publicPath: 'http://localhost:8000/'
+    publicPath: `http://${ip.address()}:8000/`
   },
   devServer: {
     hot: true,
@@ -38,8 +41,9 @@ const config = {
     historyApiFallback: true,
     contentBase: path.resolve(__dirname, '..' ,'static'),
     port: 8000,
+    // publicPath: 'http://localhost:8000/'
     // open: true,
-    // headers: { 'Access-Control-Allow-Origin': '*' },
+    headers: { 'Access-Control-Allow-Origin': '*' },
   },
   module: {
     // 加载器配置

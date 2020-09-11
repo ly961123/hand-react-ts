@@ -8,6 +8,7 @@
     "start:dev": "concurrently -n client,server npm:start:client npm:start:server",
     "start:client": "cross-env NODE_ENV=development webpack-dev-server --config webpack/webpack.dev.conf.ts",
     "start:server": "cross-env NODE_ENV=development nodemon --config nodemon.json",
+    "client:build": "cross-env NODE_ENV=production webpack --config webpack/webpack.dev.conf.ts",
     "server": "ts-node portal/index.ts"
   },
   "repository": {
@@ -21,13 +22,16 @@
   "license": "ISC",
   "dependencies": {
     "@hot-loader/react-dom": "^16.13.0",
+    "@types/cheerio": "^0.22.21",
     "antd-mobile": "^2.3.3",
     "axios": "^0.20.0",
     "babel-polyfill": "^6.26.0",
     "better-scroll": "^2.0.2",
+    "cheerio": "^1.0.0-rc.3",
     "concurrently": "^5.3.0",
     "cross-env": "^7.0.2",
     "html-webpack-plugin": "^4.3.0",
+    "ip": "^1.1.5",
     "koa": "^2.13.0",
     "koa-body": "^4.2.0",
     "koa-router": "^9.4.0",
@@ -51,6 +55,7 @@
     "@babel/plugin-proposal-decorators": "^7.10.5",
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-react": "^7.10.4",
+    "@types/ip": "^1.1.0",
     "@types/jest": "^26.0.10",
     "@types/koa": "^2.11.4",
     "@types/koa-router": "^7.4.1",
