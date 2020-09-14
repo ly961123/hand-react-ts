@@ -7,12 +7,14 @@ import router from './router';
 import requestMiddleware from './middleware/request';
 import responseMiddleware from './middleware/response';
 import loggerMiddleware from './middleware/logger';
+import snMiddleware from './middleware/sn';
 
 const rootDir = __dirname;
 const app = new Koa();
 
 app.use(userAgent);
 app.use(bodyParser({ multipart: true }));
+app.use(snMiddleware);
 app.use(loggerMiddleware);
 app.use(requestMiddleware);
 app.use(async (ctx: Koa.ParameterizedContext, next: () => void) => {
