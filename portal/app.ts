@@ -4,15 +4,19 @@ import bodyParser from 'koa-body';
 import views from 'koa-views';
 import { userAgent } from 'koa-useragent';
 import router from './router';
+import requestMiddleware from './middleware/request';
 import responseMiddleware from './middleware/response';
+import loggerMiddleware from './middleware/logger';
 
 const rootDir = __dirname;
 const app = new Koa();
 
 app.use(userAgent);
 app.use(bodyParser({ multipart: true }));
+app.use(loggerMiddleware);
+app.use(requestMiddleware);
 app.use(async (ctx: Koa.ParameterizedContext, next: () => void) => {
-  console.log(ctx);
+  ctx.logger.log('verbose', ` sn: ${ctx.headers['x-tracer-id']} | ua: ${ctx.headers['user-agent']} `);
   await next();
 });
 
