@@ -8,7 +8,7 @@
   <script>
     const WIDTH = 375
     const mobileAdapter = () => {
-      const scale = screen.width / WIDTH
+      const scale = window.screen.width / WIDTH;
       const content = `width=${WIDTH}, initial-scale=${scale}, maximum-scale=${scale}, minimum-scale=${scale}`
       let meta = document.querySelector('meta[name=viewport]')
       if (!meta) {
@@ -19,7 +19,7 @@
       meta.setAttribute('content',content)
     };
     mobileAdapter();
-    window.onorientationchange = mobileAdapter; //屏幕翻转时再次执行
+    addEventListener('resize', mobileAdapter);
   </script>
 </head>
 <body>

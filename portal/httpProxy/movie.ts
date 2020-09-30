@@ -1,17 +1,17 @@
-// const proxy = {
-//   async getRequirements(apiClient: any, req: { merchantId: string }) {
-//     return apiClient.request(`crm/merchants/${req.merchantId}/requirements`, {
-//       method: 'get',
-//       params: req,
-//     });
-//   },
+const proxy = {
+  async getMovies(apiClient: any, req: any) {
+    return apiClient.request(`hand/movie/list`, {
+      method: 'get',
+      params: req,
+    });
+  },
 
-//   async getAllRequirements(apiClient: any, req: { merchantId: string }) {
-//     return apiClient.request('crm/requirements', {
-//       method: 'get',
-//       params: req,
-//     });
-//   },
-// }
+  async getMovieDetail(apiClient: any, req: { movieId: string }) {
+    return apiClient.request(`hand/movie/${req.movieId}/details`, {
+      method: 'get',
+      params: req,
+    });
+  },
+}
 
-// export default proxy;
+export default proxy;

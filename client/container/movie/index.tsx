@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Button } from 'antd-mobile';
-import NavBar from '@rootDir/client/component/NavBar'
-import { NowPlaying, TopBars, IMovieList } from '@rootDir/model/movie.ts'
-import apiClient from '@rootDir/client/apiClient'
+import NavBar from '@rootDir/client/component/NavBar';
+import { NowPlaying, TopBars, IMovieList } from '@rootDir/model/movie.ts';
+import apiClient from '@rootDir/client/apiClient';
 import { GlobalState } from '../application/index';
-import TopBar from './components/TopBar'
+import TopBar from './components/TopBar';
 import MovieList from './MovieList';
 import './index.scss';
 

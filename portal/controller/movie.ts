@@ -4,10 +4,30 @@ import { movieList } from '../mock/movie.mock';
 export default class MovieController {
   public async getAllMovies(ctx: any) {
     const data = {
-      data: movieList(),
+      data: movieList(20),
       msg: 'success'
     }
     const res = await setTimeOutData(data);
+    // const res1 = await ctx.httpProxy.movie.getMovies(ctx.request.query);
+    // console.log(res1, 'res1res1res1res1res1');
+    
+    ctx.sendSuccessResponse(res);
+  }
+
+  public async getMoviesDetail(ctx: any) {
+    const { movieId } = ctx.request.query;
+    const params = ctx.params;
+    console.log(movieId, 'movieId111');
+    console.log(params, 'params11111');
+    
+    const data = {
+      data: movieList(1),
+      msg: 'success'
+    }
+    const res = await setTimeOutData(data);
+    // const res1 = await ctx.httpProxy.movie.getMovies(ctx.request.query);
+    // console.log(res1, 'res1res1res1res1res1');
+    
     ctx.sendSuccessResponse(res);
   }
 }

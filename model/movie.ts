@@ -25,7 +25,8 @@ export interface NowPlayingData {
   actors: Actors[],
   premiereAt: number,
   synopsis: string,
-  photos: string[],
+  photos: string,
+  stagePhoto: string[],
 }
 
 export interface NowPlaying {
@@ -36,4 +37,9 @@ export interface NowPlaying {
 export interface IMovieList {
   msg: string,
   data: NowPlaying,
+}
+
+export interface IMovieDetail {
+  msg: string,
+  data: NowPlayingData,
 }

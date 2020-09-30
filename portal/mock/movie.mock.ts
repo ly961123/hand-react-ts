@@ -1,8 +1,9 @@
 import Mock from 'mockjs';
 
-export const movieList = () => {
+export const movieList = (num: number) => {
+  const name = `list|1-${num}`
   const movieList = Mock.mock({
-    'list|1-20': [
+    [name]: [
       {
         'id|1': ['1', '2', '3', '4', '5'],
         'name|1': ['八佰', '大师兄', '叶问', '花木兰'],
@@ -36,11 +37,18 @@ export const movieList = () => {
           'https://pic.maizuo.com/usr/2020/83dd63f96b05e97954b613282811ebee.jpg',
           'https://pic.maizuo.com/usr/2020/7fac044acfdf27d206e09cf2e01a923b.jpg',
         ],
+        stagePhoto: [
+          'https://pic.maizuo.com/usr/2020/43eaed2d023d8ac50ffc89b1ce67a60f.jpg',
+          'https://pic.maizuo.com/usr/2020/3878ab5cb719655335c69a4b8ad8fc5a.jpg',
+          'https://pic.maizuo.com/usr/100004717/2887553c3a863e716a55bd1db86a6a16.jpg',
+          'https://pic.maizuo.com/usr/2020/83dd63f96b05e97954b613282811ebee.jpg',
+          'https://pic.maizuo.com/usr/2020/7fac044acfdf27d206e09cf2e01a923b.jpg',
+        ],
         actors: [
           {
             'name|1': ['管虎', '张泽', '姜武','王千源', '黄志忠'],
             'role|1': ['导演', '编剧', '老铁','羊拐', '老葫芦'],
-            'avatarAddress|+1': [
+            'avatarAddress|1': [
               'https://pic.maizuo.com/usr/movie/c685628d1c1d5b05594618fd82b423a3.jpg',
               'https://pic.maizuo.com/usr/movie/09348aa4f961d2cb7e8f7c1e5f6e4e90.jpg',
               'https://pic.maizuo.com/usr/movie/a18739fd30d4b1b9e9a16a92bda44998.jpg',
@@ -52,7 +60,7 @@ export const movieList = () => {
           {
             'name|1': ['管虎', '张泽', '姜武','王千源', '黄志忠'],
             'role|1': ['导演', '编剧', '老铁','羊拐', '老葫芦'],
-            'avatarAddress|+1': [
+            'avatarAddress|1': [
               'https://pic.maizuo.com/usr/movie/c685628d1c1d5b05594618fd82b423a3.jpg',
               'https://pic.maizuo.com/usr/movie/09348aa4f961d2cb7e8f7c1e5f6e4e90.jpg',
               'https://pic.maizuo.com/usr/movie/a18739fd30d4b1b9e9a16a92bda44998.jpg',
@@ -64,7 +72,7 @@ export const movieList = () => {
           {
             'name|1': ['管虎', '张泽', '姜武','王千源', '黄志忠'],
             'role|1': ['导演', '编剧', '老铁','羊拐', '老葫芦'],
-            'avatarAddress|+1': [
+            'avatarAddress|1': [
               'https://pic.maizuo.com/usr/movie/c685628d1c1d5b05594618fd82b423a3.jpg',
               'https://pic.maizuo.com/usr/movie/09348aa4f961d2cb7e8f7c1e5f6e4e90.jpg',
               'https://pic.maizuo.com/usr/movie/a18739fd30d4b1b9e9a16a92bda44998.jpg',
@@ -76,7 +84,7 @@ export const movieList = () => {
           {
             'name|1': ['管虎', '张泽', '姜武','王千源', '黄志忠'],
             'role|1': ['导演', '编剧', '老铁','羊拐', '老葫芦'],
-            'avatarAddress|+1': [
+            'avatarAddress|1': [
               'https://pic.maizuo.com/usr/movie/c685628d1c1d5b05594618fd82b423a3.jpg',
               'https://pic.maizuo.com/usr/movie/09348aa4f961d2cb7e8f7c1e5f6e4e90.jpg',
               'https://pic.maizuo.com/usr/movie/a18739fd30d4b1b9e9a16a92bda44998.jpg',
@@ -88,7 +96,7 @@ export const movieList = () => {
           {
             'name|1': ['管虎', '张泽', '姜武','王千源', '黄志忠'],
             'role|1': ['导演', '编剧', '老铁','羊拐', '老葫芦'],
-            'avatarAddress|+1': [
+            'avatarAddress|1': [
             'https://pic.maizuo.com/usr/movie/c685628d1c1d5b05594618fd82b423a3.jpg',
             'https://pic.maizuo.com/usr/movie/09348aa4f961d2cb7e8f7c1e5f6e4e90.jpg',
             'https://pic.maizuo.com/usr/movie/a18739fd30d4b1b9e9a16a92bda44998.jpg',
@@ -101,6 +109,9 @@ export const movieList = () => {
       }
     ]
   })
+  if (num === 1) {
+    return movieList.list[0];
+  };
   const data = {
     count: movieList.list.length,
     list: movieList.list,

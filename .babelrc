@@ -1,9 +1,13 @@
 {
-  "presets": ["@babel/env", "@babel/react"],
+  "presets": [
+    "env",
+    "react",
+    "stage-0"
+  ],
   "plugins": [
-    "react-hot-loader/babel",
-    ["@babel/plugin-proposal-decorators", { "legacy": true }],
-    "@babel/plugin-proposal-class-properties",
-    ["import", { "libraryName": "antd-mobile", "style": "css" }] // `style: true` 会加载 less 文件
+    "transform-class-properties",
+    "transform-decorators",
+    "transform-react-constant-elements",
+    "transform-react-inline-elements"
   ]
 }
