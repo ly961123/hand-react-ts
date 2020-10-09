@@ -27,7 +27,8 @@ const defaultMovieData = {
 
 const Detail = ({
   match,
-}: Pick<RouteComponentProps<{movieId: string}>, 'match'>) => {
+  history,
+}: Pick<RouteComponentProps<{movieId: string}>, 'match' | 'history'>) => {
   const { movieId } = match.params;
   const { setShowToast } = useContext(GlobalState);
   const [movieDetail, setMovieDetail] = useState<NowPlayingData>(defaultMovieData);
@@ -73,6 +74,7 @@ const Detail = ({
           movieDetail={movieDetail}
           textHeight={textHeight}
           setShowPicture={setShowPicture}
+          history={history}
         /> : <Picture
           stagePhoto={movieDetail.stagePhoto}
           setShowPicture={setShowPicture}

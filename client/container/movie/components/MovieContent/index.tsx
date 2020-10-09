@@ -1,30 +1,60 @@
-import React,{ useState } from 'react';
+import React,{ useState, useEffect } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 import { Icon } from 'antd-mobile';
 import moment from 'moment';
 import { NowPlayingData } from '@rootDir/model/movie.ts';
 import './index.scss';
 
-interface IPorps {
+type IPorps = {
   movieDetail: NowPlayingData;
   textHeight: number;
   setShowPicture: (show: boolean) => void;
-}
+} & Pick<RouteComponentProps, 'history'>
+
+const maxScroll = 40;
 
 const Content = ({
+  history,
   movieDetail,
   textHeight,
   setShowPicture,
 }: IPorps) => {
   const [type, setType] = useState('down');
+  const [showHead, setShowHead] = useState(false);
 
   const checkType = (type: string) => {
     setType(type === 'down' ? 'up' : 'down')
   };
 
+  const onscroll = () => {
+    const dom = document.getElementById('movie_detail_center');
+    const scrollTop = dom?.scrollTop || 0;
+    setShowHead(scrollTop > maxScroll ? true : false);
+  };
+
+  useEffect(() => {
+    const dom = document.getElementById('movie_detail_center');
+    dom?.addEventListener('scroll', onscroll);
+    console.log('进来了');
+    return () => {
+      dom?.removeEventListener('scroll', onscroll);
+    }
+  }, []);
+
   return (
     <div className='movie_content'>
-      <div className='movie_detail_top'>top</div>
-      <div className='movie_detail_center'>
+      <div className={showHead ? 'movie_detail_top show_head' : 'movie_detail_top'}>
+        <div className='detail_top_left' onClick={() => history.push('/movie')}>
+          <Icon
+            type='left'
+            size='lg'
+          />
+        </div>
+        <div className='detail_top_right' style={{display: showHead ? 'block' : 'none'}}>
+          {movieDetail.name}
+        </div>
+      </div>
+      <div id='movie_detail_center'>
         <div className='movie_detail_center_describe'>
           <div className='center_img'>
             <img src={movieDetail.photos || ''}/>
