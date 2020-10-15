@@ -14,6 +14,8 @@ const tabs: TopBars[] = [
   { title: '即将上映', key: 'about' },
 ];
 
+const maxScroll = 250;
+
 const defultData = {
   count: 0,
   list: [],
@@ -25,6 +27,7 @@ const Movie = ({
 }: Pick<RouteComponentProps, 'history' | 'location'>) => {
   const [text] = useState('首页');
   const [topText, setTopText] = useState('now');
+  const [showTopBar, setShowTopBar] = useState(false);
   const [nowPlayingData, setNowPlayingData] = useState<NowPlaying>(defultData);
   const { showToast, setShowToast } = useContext(GlobalState);
 
@@ -44,12 +47,23 @@ const Movie = ({
     })
   };
 
+  const onscroll = () => {
+    const dom = document.getElementById('movie__top');
+    const scrollTop = dom?.scrollTop || 0;
+    setShowTopBar(scrollTop > maxScroll ? true : false);
+  };
+
   useEffect(() => {
     console.log(showToast, 'showToast');
     console.log(setShowToast, 'setShowToast');
     console.log(location, 'location');
     console.log(history, 'history');
+    const dom = document.getElementById('movie__top');
+    dom?.addEventListener('scroll', onscroll);
     getList();
+    return () => {
+      dom?.addEventListener('scroll', onscroll);
+    }
   }, []);
 
   const goDetails = (id: number) => {
@@ -58,12 +72,13 @@ const Movie = ({
 
   return (
     <div className='movie'>
-      <div className='movie__top'>
+      <div id='movie__top'>
         <TopBar
           tabs={tabs}
           topText={topText}
           setTopText={setTopText}
           setList={getList}
+          showTopBar={showTopBar}
         />
         <MovieList
           nowPlaying={nowPlayingData}

@@ -18,6 +18,7 @@ import Order from './order';
 import MemberCenter from './memberCenter';
 import Cart from './cart';
 import User from './user';
+// import AnimatedSwitch from '../component/AnimatedSwitch';
 
 const WrapApp = withRouter(App);
 // const browserHistory = createBrowserHistory()
@@ -28,12 +29,14 @@ const MyRoute = () => (
     {/* <BrowserRouter> */}
     {/* <HashRouter> */}
       <Switch>
+      {/* <AnimatedSwitch> */}
         <Route path='/movie' component={Movie} />
         <Route path='/order' component={Order} />
         <Route path='/memberCenter' component={MemberCenter} />
         <Route path='/cart' component={Cart} />
         <Route path='/user' component={User} />
         <Redirect from='*' to='/movie' />
+      {/* </AnimatedSwitch> */}
       </Switch>
       <Loading/>
     {/* </HashRouter> */}

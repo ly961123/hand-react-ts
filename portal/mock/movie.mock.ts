@@ -1,7 +1,7 @@
 import Mock from 'mockjs';
 
 export const movieList = (num: number) => {
-  const name = `list|1-${num}`
+  const name = `list|${num}`
   const movieList = Mock.mock({
     [name]: [
       {
@@ -110,7 +110,7 @@ export const movieList = (num: number) => {
     ]
   })
   if (num === 1) {
-    return movieList.list[0];
+    return movieList.list;
   };
   const data = {
     count: movieList.list.length,
