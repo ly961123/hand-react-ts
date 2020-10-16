@@ -43,3 +43,15 @@ export interface IMovieDetail {
   msg: string,
   data: NowPlayingData,
 }
+
+export interface ICityList {
+  cityId: number,
+  isHot: number,
+  name: string,
+  pinyin: string,
+}
+
+export interface ICityDetail {
+  msg: string,
+  data: ICityList[],
+}

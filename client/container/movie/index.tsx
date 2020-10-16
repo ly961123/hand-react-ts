@@ -79,6 +79,7 @@ const Movie = ({
           setTopText={setTopText}
           setList={getList}
           showTopBar={showTopBar}
+          history={history}
         />
         <MovieList
           nowPlaying={nowPlayingData}

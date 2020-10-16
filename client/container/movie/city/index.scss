@@ -1,0 +1,131 @@
+.city {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &__top {
+    height: 93px;
+  }
+
+  &__headline {
+    height: 44px;
+    line-height: 44px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__cross {
+    width: 53px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__current_city {
+    flex: 1;
+    text-align: center;
+    font-size: 17px;
+  }
+
+  &__search {
+    height: 49px;
+  }
+
+  &__bottom {
+    flex: 1;
+    display: flex;
+    margin-top: -5px;
+    overflow: auto;
+  }
+
+  &__list {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  &__hot {
+    height: 208px;
+    background-color: #fff;
+    padding: 15px 0 0 15px;
+    display: flex;
+    flex-direction: column;
+    span {
+      font-size: 13px;
+      color: #797d82;
+      margin-bottom: 10px;
+      display: block;
+    }
+    li {
+      display: inline-block;
+      width: 99px;
+      height: 30px;
+      background-color: #f4f4f4;
+      line-height: 30px;
+      border-radius: 3px;
+      box-sizing: border-box;
+      margin: 0 7.5px 15px 7.5px;
+      font-size: 14px;
+      color: #191a1b;
+      text-align: center;
+    }
+  }
+
+  &__gprs {
+    height: 74px;
+  }
+
+  &__hot_list {
+    flex: 1;
+  }
+
+  &__parse {
+    p {
+      background-color: #f4f4f4;
+      color: #797d82;
+      padding-left: 15px;
+      height: 30px;
+      line-height: 30px;
+      font-size: 12px;
+    }
+    ul {
+      padding-left: 20px;
+      background-color: #fff;
+      font-size: 14px;
+      li {
+        height: 48px;
+        position: relative;
+        line-height: 48px;
+      }
+      li::after {
+        content: " ";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        height: 1px;
+        border-bottom: 1px solid #ededed;
+        color: #ededed;
+      }
+    }
+  }
+
+  &__monogram {
+    width: 17px;
+    height: 100%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    ul {
+      display: flex;
+      flex-direction: column;
+      li {
+        font-size: 11px;
+        padding: 4px 6px;
+        color: #191a1b;
+      }
+    }
+  }
+}

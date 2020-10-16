@@ -1,16 +1,16 @@
 import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import { TopBars } from '@rootDir/model/movie.ts';
 import { Icon } from 'antd-mobile';
-// import { useHistory } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import './index.scss';
 
-interface IProps {
+type IProps = {
   tabs: TopBars[],
   topText: string,
   setTopText: Dispatch<SetStateAction<string>>,
   setList: () => void,
   showTopBar: boolean,
-}
+} & Pick<RouteComponentProps, 'history'>
 
 const CustomTopBar = ({
   tabs,
@@ -18,6 +18,7 @@ const CustomTopBar = ({
   setTopText,
   setList,
   showTopBar,
+  history,
 }: IProps) => {
   // const history = useHistory();
 
@@ -38,7 +39,7 @@ const CustomTopBar = ({
   return (
     <div className={showTopBar ? 'movie_top_bar show_top_bar' : 'movie_top_bar'}>
       <div className='movie_top_bar__top' style={{display: showTopBar ? 'flex' : 'none'}}>
-        <div className='movie_top_bar__top_left'>
+        <div className='movie_top_bar__top_left' onClick={() => history.push(`movie/2/city`)}>
           <span>深圳</span>
           <Icon
             type='down'
