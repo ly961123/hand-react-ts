@@ -1,14 +1,10 @@
 import React, { useEffect, useState, useContext, MouseEvent } from 'react';
-// import { RouteComponentProps } from 'react-router';
 import apiClient from '@rootDir/client/apiClient';
-// import { IMovieDetail, NowPlayingData } from '@rootDir/model/movie.ts';
 import { GlobalState } from '../../application/index';
-// import Content from '../components/MovieContent';
-// import Picture from '../components/Picture';
-// import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { RouteComponentProps } from 'react-router-dom';
 import { Icon, SearchBar, Toast } from 'antd-mobile';
 import { ICityDetail, ICityList } from '@rootDir/model/movie.ts';
+import SearchResult from '../components/SearchResult';
 import './index.scss';
 
 const City = ({
@@ -17,8 +13,10 @@ const City = ({
 }: Pick<RouteComponentProps<{cityId: string}>, 'match' | 'history'>) => {
   const { cityId } = match.params;
   const { setShowToast } = useContext(GlobalState);
-  const [cityList, setCityList] = useState<any>({});
+  const [cityList, setCityList] = useState<ICityList[]>([]);
+  const [cityData, setData] = useState<any>({});
   const [hotCity, setHotCity] = useState<ICityList[]>([]);
+  const [searchCity, setSearchCity] = useState<ICityList[]>([]);
   const [showCityList, setShowCityList] = useState(true);
   console.log(cityId, 'cityId');
 
@@ -33,7 +31,7 @@ const City = ({
   };
 
   const setCityData = (list: ICityList[]) => {
-    console.log(list, 'list');
+    setCityList(list);
     let data: any = {};
     list.map((v) => {
       if (!data[v.pinyin.split('')[0].toUpperCase()]) {
@@ -43,7 +41,7 @@ const City = ({
       }
       return data[v.pinyin.split('')[0].toUpperCase()] = data[v.pinyin.split('')[0].toUpperCase()].concat(v);
     })
-    setCityList(data);
+    setData(data);
     setHotCity(list.filter(v => v.isHot));
     console.log(data, 'data');
   };
@@ -67,18 +65,22 @@ const City = ({
     const title = titles[ix];
     const rect = title.getBoundingClientRect();
     layout?.scrollTo({
-      top: rect.top + layout.scrollTop - 180,
+      top: rect.top + layout.scrollTop - 130,
       behavior: 'auto',
     });
   };
 
-  // 准备做搜索====================================
   const searchBarChange = (value: string) => {
-    console.log(value, 'value');
-    setShowCityList(false);
+    const pattern = new RegExp("[\u4E00-\u9FA5]+");
+    const list = cityList.filter(v => pattern.test(value.split('')[0]) ? v.name.includes(value) : v.pinyin.includes(value));
+    if (value) {
+      setShowCityList(false);
+      setSearchCity(list);
+      return;
+    }
+    setSearchCity([]);
   };
 
-  // const [textHeight, setTextHeight] = useState(0);
   return (
     <div className='city'>
       <div className='city__top'>
@@ -98,7 +100,7 @@ const City = ({
             placeholder='输入城市名或拼音'
             maxLength={20}
             onChange={(value) => searchBarChange(value)}
-            onCancel={() => setShowCityList(true)}
+            onCancel={(value) => setShowCityList(value ? false : true)}
           />
         </div>
       </div>
@@ -124,12 +126,12 @@ const City = ({
             </div>
             <ul className='city__parse'>
               {
-                Object.keys(cityList).sort().map((v, i) => {
+                Object.keys(cityData).sort().map((v, i) => {
                   return <li key={i}>
                     <p>{v}</p>
                     <ul>
                       {
-                        cityList[v].map((item: any, index: number) => <li key={index}>{item.name}</li>)
+                        cityData[v].map((item: any, index: number) => <li key={index}>{item.name}</li>)
                       }
                     </ul>
                   </li>
@@ -140,7 +142,7 @@ const City = ({
           <div className='city__monogram'>
             <ul>
               {
-                Object.keys(cityList).sort().map((v, i) =>
+                Object.keys(cityData).sort().map((v, i) =>
                   <li
                     key={i}
                     data-ix={i}
@@ -153,7 +155,9 @@ const City = ({
             </ul>
           </div>
         </div> :
-        <div>111</div>
+        <SearchResult
+          searchCity={searchCity}
+        />
       }
     </div>
   );

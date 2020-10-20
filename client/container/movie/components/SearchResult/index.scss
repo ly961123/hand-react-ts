@@ -1,0 +1,35 @@
+.search_result {
+  background-color: #fff;
+  flex: 1;
+  margin-top: -5px;
+  overflow: auto;
+
+  &__notCity {
+    padding-top: 100px;
+    height: 100%;
+    text-align: center;
+  }
+
+  &__list {
+    ul {
+      padding-left: 15px;
+      li {
+        height: 44px;
+        position: relative;
+        line-height: 44px;
+        color: #191a1b;
+        font-size: 13px;
+      }
+      li::after {
+        content: " ";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        height: 1px;
+        border-bottom: 1px solid #ededed;
+        color: #ededed;
+      }
+    }
+  }
+}
