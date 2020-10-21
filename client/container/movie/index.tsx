@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Button } from 'antd-mobile';
 import NavBar from '@rootDir/client/component/NavBar';
 import { NowPlaying, TopBars, IMovieList } from '@rootDir/model/movie.ts';
 import apiClient from '@rootDir/client/apiClient';
@@ -25,7 +24,6 @@ const Movie = ({
   location,
   history,
 }: Pick<RouteComponentProps, 'history' | 'location'>) => {
-  const [text] = useState('首页');
   const [topText, setTopText] = useState('now');
   const [showTopBar, setShowTopBar] = useState(false);
   const [nowPlayingData, setNowPlayingData] = useState<NowPlaying>(defultData);
@@ -66,10 +64,6 @@ const Movie = ({
     }
   }, []);
 
-  const goDetails = (id: number) => {
-    history.push(`/movie/${id}/details`);
-  };
-
   return (
     <div className='movie'>
       <div id='movie__top'>
@@ -86,14 +80,6 @@ const Movie = ({
           topText={topText}
           history={history}
         />
-        {text}
-        <Button
-          onClick={() => goDetails(1111)}
-          size='small'
-          inline
-        >
-          去详情
-        </Button>
       </div>
       <NavBar/>
     </div>
