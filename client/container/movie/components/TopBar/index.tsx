@@ -1,7 +1,15 @@
-import React, { Dispatch, SetStateAction, useEffect } from 'react';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useContext,
+  useState,
+} from 'react';
 import { TopBars } from '@rootDir/model/movie.ts';
-import { Icon } from 'antd-mobile';
+import { location } from '@rootDir/client/utils/location';
+import { Icon, Toast } from 'antd-mobile';
 import { RouteComponentProps } from 'react-router-dom';
+import { GlobalState } from '../../../application/index';
 import './index.scss';
 
 type IProps = {
@@ -20,7 +28,8 @@ const CustomTopBar = ({
   showTopBar,
   history,
 }: IProps) => {
-  // const history = useHistory();
+  const { city } = useContext(GlobalState);
+  const [currentCity, setCurrentCity] = useState('');
 
   const setTopBarText = (key: string) => {
     setTopText(key);
@@ -28,19 +37,27 @@ const CustomTopBar = ({
   };
 
   useEffect(() => {
-
-    console.log(showTopBar, 'showTopBar');
-  }, [showTopBar]);
-  
-  // const goDetails = (id: number) => {
-  //   history.push(`/movie/${id}/details`)
-  // };
+    location().then((AMap)=>{
+      AMap.plugin('AMap.CitySearch', () => {
+        const citySearch = new AMap.CitySearch()
+        citySearch.getLocalCity((status: any, result: any) => {
+          if (status === 'complete' && result.info === 'OK') {
+            // 查询成功，result即为当前所在城市信息
+            setCurrentCity(result.city);
+            console.log(result, '当前所在城市信息');
+          }
+        });
+      });
+    }).catch(e => {
+      Toast.fail(e, 1);
+    })
+  }, []);
 
   return (
     <div className={showTopBar ? 'movie_top_bar show_top_bar' : 'movie_top_bar'}>
       <div className='movie_top_bar__top' style={{display: showTopBar ? 'flex' : 'none'}}>
-        <div className='movie_top_bar__top_left' onClick={() => history.push(`movie/2/city`)}>
-          <span>深圳</span>
+        <div className='movie_top_bar__top_left' onClick={() => history.push(`movie/${city.id || 0}/city`)}>
+          <span>{city.name || currentCity}</span>
           <Icon
             type='down'
             size='xxs'

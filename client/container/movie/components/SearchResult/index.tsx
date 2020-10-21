@@ -1,16 +1,17 @@
 import React from 'react';
-// import { RouteComponentProps } from 'react-router';;
 import { ICityList } from '@rootDir/model/movie.ts';
 import './index.scss';
 
 type IProps = {
   searchCity: ICityList[],
+  goMovies: (city: ICityList) => void,
 };
 
 const notCity = require('../../../../assets/image/notCity.png');
 
 const SearchResult = ({
-  searchCity
+  searchCity,
+  goMovies,
 }: IProps) => {
   return (
     <div className='search_result'>
@@ -19,7 +20,7 @@ const SearchResult = ({
           ? <div className='search_result__list'>
               <ul>
                 {
-                  searchCity.map((v, i) => <li key={i}>{v.name}</li>)
+                  searchCity.map((v, i) => <li key={i} onClick={() => goMovies(v)}>{v.name}</li>)
                 }
               </ul>
             </div>
