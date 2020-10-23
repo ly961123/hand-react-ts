@@ -15,7 +15,7 @@ export default class MovieController {
     ctx.sendSuccessResponse(res);
   }
 
-  public async getMoviesDetail(ctx: any) {
+  public async moviesDetail(ctx: any) {
     const { movieId } = ctx.request.query;
     const params = ctx.params;
     console.log(movieId, 'movieId111');
