@@ -18,15 +18,15 @@ const SearchResult = ({
       {
         searchCity?.length
           ? <div className='search_result__list'>
-              <ul>
-                {
-                  searchCity.map((v, i) => <li key={i} onClick={() => goMovies(v)}>{v.name}</li>)
-                }
-              </ul>
-            </div>
+            <ul>
+              {
+                searchCity.map((v, i) => <li key={i} onClick={() => goMovies(v)}>{v.name}</li>)
+              }
+            </ul>
+          </div>
           : <div className='search_result__notCity'>
-              <img src={notCity.default} alt='1'/>
-            </div>
+            <img src={notCity.default} alt='1'/>
+          </div>
       }
     </div>
   );

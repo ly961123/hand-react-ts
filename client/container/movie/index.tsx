@@ -40,7 +40,7 @@ const Movie = ({
       console.log(res, 'resresres');
       setNowPlayingData(res.data);
       setShowToast(false);
-    }).catch((err) => {
+    }).catch(err => {
       console.log(err, '出错了');
     })
   };

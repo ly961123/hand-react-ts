@@ -39,7 +39,7 @@ const NavBar = () => {
   }, []);
 
   return (
-    <div className="nav-bar">
+    <div className='nav-bar'>
       <ul>
         {
           barList.map((v: NavBars) => {

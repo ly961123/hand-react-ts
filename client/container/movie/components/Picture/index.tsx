@@ -20,20 +20,20 @@ const Picture = ({
     <div className='movie_picture'>
       {
         !showCarousel ?
-        <div className='movie_picture_overview'>
-          <div className='movie_picture_top'>
-            <div>
-              <Icon
-                type='left'
-                size='md'
-                onClick={() => setShowPicture(false)}
-              />
+          <div className='movie_picture_overview'>
+            <div className='movie_picture_top'>
+              <div>
+                <Icon
+                  type='left'
+                  size='md'
+                  onClick={() => setShowPicture(false)}
+                />
+              </div>
+              <span>剧照（{stagePhoto.length || 0}）</span>
             </div>
-            <span>剧照（{stagePhoto.length || 0}）</span>
-          </div>
-          <div className='movie_picture_content'>
-            <ul>
-              {
+            <div className='movie_picture_content'>
+              <ul>
+                {
                 stagePhoto?.map((v, i) => {
                   return (
                     <li
@@ -47,14 +47,14 @@ const Picture = ({
                     </li>
                   )
                 })
-              }
-            </ul>
-          </div>
-        </div> : <Carousels
-          stagePhoto={stagePhoto}
-          showIndex={showIndex}
-          setShowCarousel={setShowCarousel}
-        />
+                }
+              </ul>
+            </div>
+          </div> : <Carousels
+            stagePhoto={stagePhoto}
+            showIndex={showIndex}
+            setShowCarousel={setShowCarousel}
+          />
       }
     </div>
   );

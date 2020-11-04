@@ -52,7 +52,7 @@ describe('MovieController', () => {
         return {
           data: [{
             isHot: 1,
-            name: "test",
+            name: 'test',
           }],
           msg: 'success',
         };

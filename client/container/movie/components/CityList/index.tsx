@@ -24,7 +24,7 @@ const CityList = ({
           <div className='city__gprs'>
             <span>GPS定位你所在城市</span>
             <ul>
-              <li  onClick={() => goMovies(currentCity, 1)}>{currentCity}</li>
+              <li onClick={() => goMovies(currentCity, 1)}>{currentCity}</li>
             </ul>
           </div>
           <div className='city__hot_list'>
@@ -43,7 +43,8 @@ const CityList = ({
                 <p>{v}</p>
                 <ul>
                   {
-                    cityData[v].map((item: any, index: number) => <li key={index} onClick={() => goMovies(item)}>{item.name}</li>)
+                    cityData[v].map((item: any, index: number) =>
+                      <li key={index} onClick={() => goMovies(item)}>{item.name}</li>)
                   }
                 </ul>
               </li>

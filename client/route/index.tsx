@@ -26,21 +26,21 @@ const WrapApp = withRouter(App);
 const MyRoute = () => (
   <Router>
     <WrapApp>
-    {/* <BrowserRouter> */}
-    {/* <HashRouter> */}
+      {/* <BrowserRouter> */}
+      {/* <HashRouter> */}
       <Switch>
-      {/* <AnimatedSwitch> */}
+        {/* <AnimatedSwitch> */}
         <Route path='/movie' component={Movie} />
         <Route path='/order' component={Order} />
         <Route path='/memberCenter' component={MemberCenter} />
         <Route path='/cart' component={Cart} />
         <Route path='/user' component={User} />
         <Redirect from='*' to='/movie' />
-      {/* </AnimatedSwitch> */}
+        {/* </AnimatedSwitch> */}
       </Switch>
       <Loading/>
-    {/* </HashRouter> */}
-    {/* </BrowserRouter> */}
+      {/* </HashRouter> */}
+      {/* </BrowserRouter> */}
     </WrapApp>
   </Router>
 );

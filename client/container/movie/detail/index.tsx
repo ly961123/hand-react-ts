@@ -51,7 +51,7 @@ const Detail = ({
     fetchDetail().then((res: IMovieDetail) => {
       setMovieDetail(res.data);
       setShowToast(false);
-    }).catch((err) => {
+    }).catch(err => {
       console.log(err, '出错了');
       setShowToast(false);
     })
@@ -69,16 +69,16 @@ const Detail = ({
   return (
     <div className='movie_detail'>
       {
-      !showPicture ?
-        <Content
-          movieDetail={movieDetail}
-          textHeight={textHeight}
-          setShowPicture={setShowPicture}
-          history={history}
-        /> : <Picture
-          stagePhoto={movieDetail.stagePhoto}
-          setShowPicture={setShowPicture}
-        />
+        !showPicture ?
+          <Content
+            movieDetail={movieDetail}
+            textHeight={textHeight}
+            setShowPicture={setShowPicture}
+            history={history}
+          /> : <Picture
+            stagePhoto={movieDetail.stagePhoto}
+            setShowPicture={setShowPicture}
+          />
       }
     </div>
   );

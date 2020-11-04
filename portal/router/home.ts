@@ -1,5 +1,5 @@
 import Router from 'koa-router';
-import  { index }  from '../controller/home';
+import { index } from '../controller/home';
 
 const homeRouter: Router = new Router();
 

@@ -36,9 +36,9 @@ const Carousels = ({
         >
           {
             stagePhoto.map((v, i) => {
-              return  <div key={i}>
-              <img src={v}/>
-            </div>
+              return <div key={i}>
+                <img src={v}/>
+              </div>
             })
           }
         </Carousel>

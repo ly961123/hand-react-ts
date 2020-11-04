@@ -51,32 +51,35 @@ interface ICtx {
 }
 
 export default async (ctx: ICtx, next: () => void) => {
-  ctx.httpProxy = Object.keys(httpProxyMapping).reduce((item: any, key: string | TKeyOfProxyMapping) => {
-    const config = ctx.config.proxy;
-    const mappingKey = key as TKeyOfProxyMapping;
+  ctx.httpProxy =Object.keys(httpProxyMapping)
+    .reduce((item: any, key: string | TKeyOfProxyMapping) => {
+      const config = ctx.config.proxy;
+      const mappingKey = key as TKeyOfProxyMapping;
 
-    if (!config.http) {
+      if (!config.http) {
+        return item;
+      }
+
+      // 这里输出对应某个服务的baseUrl的对象
+      // movie: {
+      //   // baseUrl: env.MOVIE_URL as string,
+      //   baseUrl: 'http://epstest.oa.com' as string,
+      // },
+      const httpConfig = config.http[mappingKey];
+      const apiClient = new ApiClient({
+        ...httpConfig,
+        sn: ctx.sn,
+      });
+
+      item[mappingKey] = Object.keys(httpProxyMapping[mappingKey])
+        .reduce((proxyAcc: any, proxyKey: any) => {
+          proxyAcc[proxyKey] = (req: any) =>
+            (httpProxyMapping[mappingKey] as any)[proxyKey](apiClient, req);
+          return proxyAcc;
+        });
+
       return item;
-    }
-
-    // 这里输出对应某个服务的baseUrl的对象
-    // movie: {
-    //   // baseUrl: env.MOVIE_URL as string,
-    //   baseUrl: 'http://epstest.oa.com' as string,
-    // },
-    const httpConfig = config.http[mappingKey];
-    const apiClient = new ApiClient({
-      ...httpConfig,
-      sn: ctx.sn,
-    });
-
-    item[mappingKey] = Object.keys(httpProxyMapping[mappingKey]).reduce((proxyAcc: any, proxyKey: any) => {
-      proxyAcc[proxyKey] = (req: any) => (httpProxyMapping[mappingKey] as any)[proxyKey](apiClient, req);
-      return proxyAcc;
-    });
-
-    return item;
-  })
+    })
 
   await next();
 };

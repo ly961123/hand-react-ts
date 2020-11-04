@@ -37,7 +37,7 @@ const CustomTopBar = ({
   };
 
   useEffect(() => {
-    location().then((AMap)=>{
+    location().then(AMap=>{
       AMap.plugin('AMap.CitySearch', () => {
         const citySearch = new AMap.CitySearch()
         citySearch.getLocalCity((status: any, result: any) => {
@@ -68,7 +68,7 @@ const CustomTopBar = ({
       </div>
       <div className='movie_top_bar__bottom'>
         {
-          tabs.map((v) =>
+          tabs.map(v =>
             <div
               className='top_bar_cut'
               key={v.key}

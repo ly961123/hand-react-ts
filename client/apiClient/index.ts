@@ -8,6 +8,7 @@ enum StatusCode {
 
 class ApiClient {
   private baseUrl: string;
+  // eslint-disable-next-line @typescript-eslint/ban-types
   private defaultHeaders: object;
 
   constructor() {

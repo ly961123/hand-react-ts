@@ -35,8 +35,8 @@ const City = ({
 
   const setCityData = (list: ICityList[]) => {
     setCityList(list);
-    let data: any = {};
-    list.map((v) => {
+    const data: any = {};
+    list.map(v => {
       if (!data[v.pinyin.split('')[0].toUpperCase()]) {
         return data[v.pinyin.split('')[0].toUpperCase()] = [v];
       }
@@ -51,14 +51,15 @@ const City = ({
     fetchDetail().then((res: ICityDetail) => {
       setCityData(res.data);
       setShowToast(false);
-      location().then((AMap)=>{
+      location().then(AMap=>{
         AMap.plugin('AMap.CitySearch', () => {
           const citySearch = new AMap.CitySearch()
           citySearch.getLocalCity((status: any, result: any) => {
             if (status === 'complete' && result.info === 'OK') {
               // 查询成功，result即为当前所在城市信息
               setCurrentCity(result.city);
-              setSelectiveCityCity(res.data.filter(v => v.cityId === Number(cityId))[0]?.name || result.city);
+              setSelectiveCityCity(res.data.filter(v =>
+                v.cityId === Number(cityId))[0]?.name || result.city);
               console.log(result, '当前所在城市信息');
             }
           });
@@ -66,7 +67,7 @@ const City = ({
       }).catch(e => {
         Toast.fail(e, 1);
       })
-    }).catch((err) => {
+    }).catch(err => {
       Toast.fail(err, 1);
       setShowToast(false);
     });
@@ -86,7 +87,7 @@ const City = ({
   };
 
   const searchBarChange = (value: string) => {
-    const pattern = new RegExp("[\u4E00-\u9FA5]+");
+    const pattern = new RegExp('[\u4E00-\u9FA5]+');
     const list = cityList.filter(v => pattern.test(value.split('')[0]) ? v.name.includes(value) : v.pinyin.includes(value));
     if (value) {
       setShowCityList(false);
@@ -123,24 +124,24 @@ const City = ({
           <SearchBar
             placeholder='输入城市名或拼音'
             maxLength={20}
-            onChange={(value) => searchBarChange(value)}
-            onCancel={(value) => setShowCityList(value ? false : true)}
+            onChange={value => searchBarChange(value)}
+            onCancel={value => setShowCityList(value ? false : true)}
           />
         </div>
       </div>
       {
         showCityList
           ? <CityList
-              goMovies={goMovies}
-              handleMonogramClick={handleMonogramClick}
-              currentCity={currentCity}
-              hotCity={hotCity}
-              cityData={cityData}
-            />
+            goMovies={goMovies}
+            handleMonogramClick={handleMonogramClick}
+            currentCity={currentCity}
+            hotCity={hotCity}
+            cityData={cityData}
+          />
           : <SearchResult
-              searchCity={searchCity}
-              goMovies={goMovies}
-            />
+            searchCity={searchCity}
+            goMovies={goMovies}
+          />
       }
     </div>
   );

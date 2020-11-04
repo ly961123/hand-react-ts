@@ -6,7 +6,7 @@ export interface Iconfig {
   baseUrl: string;
   sn: string | undefined;
   proxy?: IProxyConfig;
-};
+}
 
 type IHttpProxyConfigMapping = {
   [key in keyof typeof httpProxyMapping]: Iconfig;
