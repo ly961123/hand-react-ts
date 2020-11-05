@@ -36,7 +36,7 @@ const Detail = ({
   const [textHeight, setTextHeight] = useState(0);
 
   const fetchDetail = async () => {
-    const data: IMovieDetail = await apiClient.get(
+    const data: IMovieDetail = await apiClient.post(
       `movie/${movieId}/detail`,
       {
         params: { movieId },
