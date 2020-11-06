@@ -57,6 +57,8 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 0,
     // 字符串只允许单引号或模板字符串
     'quotes': ['error', 'single', { 'allowTemplateLiterals': true }],
+    // 此规则强制在 JSX 属性中一致使用双引号或单引号
+    'jsx-quotes': ['error', 'prefer-single'],
     indent: [
       'warn',
       2,
